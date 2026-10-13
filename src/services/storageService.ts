@@ -2,7 +2,7 @@ import { Restaurant, Review, UserPreferences, TripReminder, NewOpeningAlert } fr
 import { INITIAL_RESTAURANTS, INITIAL_ALERTS } from '../data/mockRestaurants';
 
 const KEYS = {
-  RESTAURANTS: 'glutensafe_restaurants_cache_v5',
+  RESTAURANTS: 'glutensafe_restaurants_cache_v8',
   LAST_SYNC: 'glutensafe_last_sync_timestamp',
   FAVORITES: 'glutensafe_user_favorites',
   VISITED: 'glutensafe_user_visited_history',
