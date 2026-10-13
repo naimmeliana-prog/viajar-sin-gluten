@@ -1,0 +1,6 @@
+{
+  "name": "GlutenSafe - Restaurantes Sin Gluten Seguros",
+  "description": "Localizador de restaurantes 100% sin gluten y seguros para celíacos con mapa interactivo, filtros por certificación FACE, reseñas verificadas, alertas de aperturas y modo offline para viajar sin preocupaciones.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
