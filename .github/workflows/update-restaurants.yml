@@ -1,0 +1,47 @@
+name: Verificación y Sincronización Periódica del Catálogo
+
+on:
+  schedule:
+    # Se ejecuta todos los lunes a las 08:00 UTC
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+    # Permite ejecutarlo manualmente desde la pestaña Actions de GitHub con un clic
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: Sincronizar y Validar Catálogo Sin Gluten
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Verificar integridad de restaurantes y coordenadas
+        run: node scripts/verify_catalog.cjs
+
+      - name: Comprobar compilación para Vercel
+        run: npm run build
+
+      - name: Guardar cambios en el repositorio si hubiese actualizaciones
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "chore(catalogo): actualización periódica y verificación de restaurantes [skip ci]"
+            git push origin main
+          else
+            echo "El catálogo está al día, no se requieren commits adicionales."
+          fi

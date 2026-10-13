@@ -9,6 +9,7 @@ interface HeaderProps {
   newAlertsCount: number;
   isOfflineMode: boolean;
   onOpenProfile: () => void;
+  onToggleOfflineMode?: (offline: boolean) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -19,6 +20,7 @@ export const Header: React.FC<HeaderProps> = ({
   newAlertsCount,
   isOfflineMode,
   onOpenProfile,
+  onToggleOfflineMode,
 }) => {
   return (
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200">
@@ -116,8 +118,20 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </nav>
 
-          {/* Zone 3: 1 primary action */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Zone 3: Actions & Offline Status */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            {isOfflineMode && onToggleOfflineMode && (
+              <button
+                onClick={() => onToggleOfflineMode(false)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                title="Modo offline activo. Haz clic aquí para volver al modo online"
+              >
+                <WifiOff className="w-3.5 h-3.5 text-amber-800" />
+                <span className="hidden sm:inline">Desactivar Offline</span>
+                <span className="sm:hidden">Online</span>
+              </button>
+            )}
+
             <button
               onClick={onOpenProfile}
               className="flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-slate-800 bg-slate-100 hover:bg-slate-200/80 rounded-xl transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"

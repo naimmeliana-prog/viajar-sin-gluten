@@ -381,16 +381,27 @@ export default function App() {
         newAlertsCount={alerts.length}
         isOfflineMode={isOfflineMode}
         onOpenProfile={() => setIsProfileOpen(true)}
+        onToggleOfflineMode={handleToggleOfflineMode}
       />
 
       {/* Offline Mode Alert Ribbon if active */}
       {isOfflineMode && (
-        <div className="bg-amber-500 text-slate-950 px-4 py-2 text-xs font-semibold flex items-center justify-between">
-          <div className="flex items-center gap-2 max-w-7xl mx-auto w-full">
-            <WifiOff className="w-4 h-4 shrink-0" />
-            <span>
-              Modo Offline Activo: Toda la base de datos y la Tarjeta de Viaje están disponibles en tu dispositivo sin usar datos móviles.
-            </span>
+        <div className="bg-amber-400 border-b border-amber-500 text-slate-950 px-4 py-2.5 text-xs font-semibold shadow-xs">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5">
+            <div className="flex items-center gap-2">
+              <WifiOff className="w-4 h-4 shrink-0 text-slate-950" />
+              <span>
+                <strong>Modo Offline activado:</strong> La guía de restaurantes, filtros y la Tarjeta de Viaje están funcionando desde la memoria local de tu dispositivo.
+              </span>
+            </div>
+            <button
+              onClick={() => handleToggleOfflineMode(false)}
+              className="px-3.5 py-1 bg-slate-950 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer"
+              title="Volver a conectarse en línea"
+            >
+              <Wifi className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Volver a Modo Online</span>
+            </button>
           </div>
         </div>
       )}

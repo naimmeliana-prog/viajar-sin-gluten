@@ -252,6 +252,10 @@ export class StorageService {
   }
 
   static setOfflineSimulated(val: boolean): void {
-    localStorage.setItem(KEYS.OFFLINE_MODE_FORCED, val ? 'true' : 'false');
+    if (val) {
+      localStorage.setItem(KEYS.OFFLINE_MODE_FORCED, 'true');
+    } else {
+      localStorage.removeItem(KEYS.OFFLINE_MODE_FORCED);
+    }
   }
 }
